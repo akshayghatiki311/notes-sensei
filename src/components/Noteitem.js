@@ -12,6 +12,7 @@ function Noteitem(props) {
             <i className="fa-regular fa-pen-to-square mx-2"></i>
           </div>
           <p className="card-text">{note.description}</p>
+          <p className="card-text">{note.tag}</p>
         </div>
       </div>
     </div>
