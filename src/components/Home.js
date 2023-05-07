@@ -1,6 +1,8 @@
 import React from "react";
+import Notes from "./Notes";
 
 function Home() {
+  
   return (
     <div>
       <div className="container my-3">
@@ -45,9 +47,7 @@ function Home() {
           </button>
         </form>
       </div>
-      <div className="container my-3">
-        <h2>Your Notes</h2>
-      </div>
+      <Notes/>
     </div>
   );
 }
