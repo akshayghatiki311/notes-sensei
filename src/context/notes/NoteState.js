@@ -17,8 +17,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-
-    console.log(json);
     setNotes(json);
   };
 
@@ -45,7 +43,7 @@ const NoteState = (props) => {
         "Content-Type": "application/json",
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ1NTNmNzU1ZjM5ZmEwNGE4ZGY5Njk3In0sImlhdCI6MTY4MzMwODQyM30.mQLfLymvTjD2FkaEAV4a_Wtg-oM74RpBMlvChxaV164",
-      }
+      },
     });
     // const json = await response.json();
 
@@ -65,22 +63,24 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
+    const json = await response.json();
 
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    let newNotes = JSON.parse(JSON.stringify(notes));
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
-    setNotes(notes);
+    setNotes(newNotes);
   };
 
   return (
     <NoteContext.Provider
-      value={{ notes, addNote, deleteNote, editNote, getNotes }}
+      value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}
     >
       {props.children}
     </NoteContext.Provider>
