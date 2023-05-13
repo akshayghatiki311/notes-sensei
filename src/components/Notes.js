@@ -8,6 +8,7 @@ function Notes() {
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
+    // eslint-disable-next-line
   }, []);
 
   const updateNote = (currentNote) => {
@@ -84,8 +85,9 @@ function Notes() {
                     id="etitle"
                     name="etitle"
                     value={note.etitle}
-                    aria-describedby="emailHelp"
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -99,6 +101,8 @@ function Notes() {
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -125,6 +129,9 @@ function Notes() {
                 Close
               </button>
               <button
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
                 ref={refClose}
                 onClick={handleOnClick}
                 type="button"
@@ -143,6 +150,9 @@ function Notes() {
             <Noteitem key={note._id} updateNote={updateNote} note={note} />
           );
         })}
+        <div className="container">
+          {notes.length === 0 && "No notes to display"}
+        </div>
       </div>
     </>
   );
