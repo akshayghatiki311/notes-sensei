@@ -31,7 +31,8 @@ function Login(props) {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
   return (
-    <div>
+    <div className="mt-3">
+      <h2>Login to NotesSensei</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -64,7 +65,7 @@ function Login(props) {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Submit
+          Login
         </button>
       </form>
     </div>
