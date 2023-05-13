@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });  
+function Login(props) {
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
   const host = "http://localhost:5000";
   const handleSubmit = async (event) => {
@@ -12,16 +12,19 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email:credentials.email, password:credentials.password }),
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+      }),
     });
     const json = await response.json();
-    if(json.success){
-        // redirect
-        localStorage.setItem('token',json.authtoken);
-        navigate('/');
-    }
-    else{
-        alert('Invalid credentials');
+    if (json.success) {
+      // redirect
+      localStorage.setItem("token", json.authToken);
+      navigate("/");
+      props.updateAlert("Logged in successfully", "success");
+    } else {
+      props.updateAlert("Invalid credentials", "danger");
     }
   };
   const onChange = (event) => {
